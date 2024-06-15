@@ -1,0 +1,15 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:frontend": "tsc -p apps/frontend",
+    "build:backend": "tsc -p apps/backend",
+    "build:shared": "tsc -p packages/shared"
+  }
+}

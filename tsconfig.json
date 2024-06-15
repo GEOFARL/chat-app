@@ -1,0 +1,13 @@
+{
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "apps", "packages"],
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ESNext"
+  }
+}
