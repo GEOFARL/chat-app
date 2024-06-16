@@ -1,12 +1,15 @@
-import express from 'express';
-import { createServer } from 'http';
+import { serverApplication } from './libs/modules/server-application/server-application.js';
 
-const PORT = 3001;
+import { errorHandler } from './middlewares/error-handler/error-handler.js';
+import { httpLogger } from './middlewares/http-logger/http-logger.js';
+import { notFoundHandler } from './middlewares/not-found-handler/not-found-handler.js';
 
-const app = express();
+serverApplication.initMiddlewares([httpLogger]);
 
-const httpServer = createServer(app);
+serverApplication.initControllers([]);
 
-httpServer.listen(PORT, () => {
-  console.log('Server is running on the port', PORT);
-});
+serverApplication.initErrorHandler(errorHandler);
+
+serverApplication.initNotFoundHandler(notFoundHandler);
+
+serverApplication.start();
