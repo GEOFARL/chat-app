@@ -3,6 +3,7 @@ import { useLocation } from '~/libs/hooks/hooks.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 
 import { SignInForm, SignUpForm } from './components/components.js';
+import { Container } from '~/libs/components/components.js';
 
 const Auth: React.FC = () => {
   const { pathname } = useLocation();
@@ -22,11 +23,11 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <main>
-      <h1>Authentication</h1>
-
-      {handleScreenRender(pathname)}
-    </main>
+    <div className="bg-grey min-h-screen">
+      <div className="flex flex-col justify-center pt-44">
+        <Container>{handleScreenRender(pathname)}</Container>
+      </div>
+    </div>
   );
 };
 

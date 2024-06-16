@@ -7,3 +7,6 @@ export { Button } from './button/button.tsx';
 export { Icon } from './icon/icon.tsx';
 export { AuthWrapper } from './auth-wrapper/auth-wrapper.tsx';
 export { Image } from './image/image.tsx';
+export { Container } from './container/container.tsx';
+export { Card } from './card/card.tsx';
+export { Input } from './input/input.tsx';
