@@ -12,6 +12,7 @@ import { AppRoute } from '~/libs/enums/enums.js';
 
 import { NotFound } from './pages/not-found/not-found.js';
 import { Auth } from './pages/auth/auth.js';
+import { Home } from './pages/home/home.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
@@ -22,6 +23,10 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
             element: <App />,
             path: AppRoute.ROOT,
             children: [
+              {
+                element: <Home />,
+                index: true,
+              },
               {
                 element: <Auth />,
                 path: AppRoute.SIGN_IN,
