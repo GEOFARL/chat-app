@@ -1,9 +1,8 @@
-import { RouterOutlet } from '~/libs/components/components.ts';
+import { RouterOutlet } from '~/libs/components/components.js';
 
 const App: React.FC = () => {
   return (
     <>
-      <h1 className="text-3xl text-red-500">Hello World</h1>
       <RouterOutlet />
     </>
   );
