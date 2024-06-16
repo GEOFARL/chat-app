@@ -2,6 +2,7 @@
   "name": "@chat-app/shared",
   "version": "1.0.0",
   "type": "module",
+  "main": "src/index.ts",
   "scripts": {
     "build": "rm -rf build && tsc -p tsconfig.json"
   },
