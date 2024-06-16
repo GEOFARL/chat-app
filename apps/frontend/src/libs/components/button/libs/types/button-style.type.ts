@@ -1,3 +1,3 @@
-type ButtonStyle = 'button' | 'link';
+type ButtonStyle = 'primary' | 'secondary' | 'link';
 
 export { type ButtonStyle };
