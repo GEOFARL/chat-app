@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { getValidClassNames } from '~/libs/helpers/helpers';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 type Properties = {
   children: ReactNode;
