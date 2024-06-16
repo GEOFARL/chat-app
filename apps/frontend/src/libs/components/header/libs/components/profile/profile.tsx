@@ -1,5 +1,7 @@
 import defaultAvatar from '~/assets/images/default-avatar.png';
 
+import styles from './styles.module.css';
+
 import { Button, Card, Image } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { useCallback, useState } from '~/libs/hooks/hooks.js';
@@ -19,7 +21,11 @@ const Profile: React.FC = () => {
       </button>
 
       {isOpen && (
-        <Card className="absolute flex flex-col items-start gap-2 top-[52px] right-[10px]">
+        <Card
+          className={`absolute flex flex-col items-start gap-2 top-[52px] right-[10px] ${
+            isOpen && styles['modal-open']
+          }`}
+        >
           {isLoggedIn ? (
             <>
               <Button label="Log Out" size="sm" className="text-nowrap" />
