@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import { Button, Card, Image } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
 import { useCallback, useState } from '~/libs/hooks/hooks.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
 const Profile: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -22,9 +23,10 @@ const Profile: React.FC = () => {
 
       {isOpen && (
         <Card
-          className={`absolute flex flex-col items-start gap-2 top-[52px] right-[10px] ${
+          className={getValidClassNames(
+            'absolute flex flex-col items-start gap-2 top-[52px] right-[10px]',
             isOpen && styles['modal-open']
-          }`}
+          )}
         >
           {isLoggedIn ? (
             <>
