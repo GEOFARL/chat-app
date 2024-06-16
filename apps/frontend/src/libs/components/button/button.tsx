@@ -16,6 +16,7 @@ type Properties = {
   buttonStyle?: ButtonStyle;
   activeClassName?: string | undefined;
   type?: 'button' | 'submit';
+  size?: 'md' | 'sm';
 };
 
 const Button: React.FC<Properties> = ({
@@ -27,14 +28,16 @@ const Button: React.FC<Properties> = ({
   activeClassName,
   buttonStyle = 'primary',
   type = 'button',
+  size = 'md',
 }) => {
   const buttonStyles = getValidClassNames(
-    'flex flex-row items-center gap-2 text-lg',
+    'flex flex-row items-center justify-center gap-2 text-lg',
     buttonStyle !== 'link' &&
       'px-6 py-2 rounded-md hover:opacity-80 active:opacity-60',
     buttonStyle === 'primary' && 'bg-blue-500 text-white',
     buttonStyle === 'secondary' && 'bg-white',
     buttonStyle === 'link' && 'hover:underline',
+    size === 'sm' && 'text-sm px-5 py-1.5',
     className
   );
 
@@ -50,12 +53,12 @@ const Button: React.FC<Properties> = ({
           to={href}
           activeClassName={activeClassName ?? ''}
         >
-          <span>{label}</span>
+          <span className='className="w-full text-center"'>{label}</span>
           {icon}
         </Link>
       ) : (
         <button className={buttonStyles} type={type}>
-          <span className="w-full">{label}</span>
+          <span className="w-full text-center">{label}</span>
           {icon}
         </button>
       )}
