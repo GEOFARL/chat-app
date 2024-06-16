@@ -1,4 +1,4 @@
-import { AppRoute } from '~/libs/enums/enums.ts';
+import { AppRoute } from '~/libs/enums/enums.js';
 
 import { NavigationItem } from '../navigation-item/navigation-item.tsx';
 

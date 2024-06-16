@@ -1,6 +1,6 @@
 import defaultAvatar from '~/assets/images/default-avatar.png';
 
-import { Navigation } from './libs/components/components.ts';
+import { Navigation } from './libs/components/components.js';
 
 import { Image } from '../image/image.tsx';
 
