@@ -5,11 +5,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@chat-app/shared": ["../../packages/shared/src/index.ts"]
+      "~/*": ["./src/*"]
     },
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "module": "ESNext",
     "outDir": "build"
   }
 }
