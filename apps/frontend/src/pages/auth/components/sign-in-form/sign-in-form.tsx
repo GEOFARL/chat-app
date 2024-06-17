@@ -1,15 +1,67 @@
+import { type SubmitHandler } from 'react-hook-form';
+
 import { Button, Card, Input, Link } from '~/libs/components/components.js';
-import { useCallback } from '~/libs/hooks/hooks.js';
-import { AppRoute } from '~/libs/enums/enums.js';
-import { type BaseSyntheticEvent } from 'react';
+import { AppRoute, CookieName, QueryKey } from '~/libs/enums/enums.js';
+import {
+  useCallback,
+  useCookies,
+  useForm,
+  useMutation,
+  useNavigate,
+  useQueryClient,
+} from '~/libs/hooks/hooks.js';
+import {
+  NotificationMessage,
+  notification,
+} from '~/libs/modules/notification/notification.js';
+import { authApi } from '~/modules/auth/auth.js';
+import { UserSignInRequestDto } from '~/modules/user/user.js';
+import { PasswordInput } from '../password-input/password-input';
 
 const SignInForm: React.FC = () => {
-  const handleSubmit = useCallback((event: BaseSyntheticEvent) => {
-    event.preventDefault();
-  }, []);
+  const queryClient = useQueryClient();
+  const setCookie = useCookies([CookieName.TOKEN])[1];
+  const navigate = useNavigate();
+
+  const { handleSubmit, control } = useForm<UserSignInRequestDto>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const { mutate: signIn, isPending } = useMutation({
+    mutationFn: (user: UserSignInRequestDto) => authApi.signIn(user),
+    onSuccess: (data) => {
+      queryClient.setQueryData([QueryKey.USER], data.user);
+      setCookie(CookieName.TOKEN, data.token);
+      notification.success(NotificationMessage.SIGNED_IN_SUCCESSFULLY);
+      navigate(AppRoute.ROOT);
+    },
+    onError: (error) => {
+      console.log(error);
+      notification.error(error.message);
+    },
+  });
+
+  const onSubmit: SubmitHandler<UserSignInRequestDto> = useCallback(
+    (data: UserSignInRequestDto) => {
+      signIn(data);
+    },
+    [signIn]
+  );
 
   return (
     <Card className="w-[600px] rounded-xl px-10">
+      <p className="flex flex-row items-center gap-1.5 text-sm">
+        <span>Go Back</span>
+        <Link
+          to={AppRoute.ROOT}
+          className="text-blue-500 hover:underline flex flex-row items-center"
+        >
+          Home &rarr;
+        </Link>
+      </p>
       <div className="flex flex-col items-center gap-2 mb-4">
         <h2 className="text-4xl font-semibold">Sign In</h2>
         <p className="text-gray-500">
@@ -20,11 +72,26 @@ const SignInForm: React.FC = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-full flex flex-col space-y-4">
-        <Input label="Email" type="email" placeholder="john_doe@gmail.com" />
-        <Input label="Password" type="password" placeholder="•••••••••" />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex flex-col space-y-4"
+      >
+        <Input
+          label="Email"
+          type="email"
+          placeholder="john_doe@gmail.com"
+          control={control}
+          name="email"
+        />
 
-        <Button label="Log In" type="submit" className="w-full text-center" />
+        <PasswordInput control={control} />
+
+        <Button
+          label={isPending ? 'Logging In...' : 'Log In'}
+          type="submit"
+          className="w-full text-center"
+          disabled={isPending}
+        />
       </form>
     </Card>
   );

@@ -49,6 +49,20 @@ class BaseConfig implements Config {
           env: 'PORT',
           format: Number,
         },
+        CLIENT_ORIGIN: {
+          default: null,
+          doc: 'Origin of the client',
+          env: 'CLIENT_ORIGIN',
+          format: String,
+        },
+      },
+      JWT: {
+        SECRET: {
+          default: null,
+          doc: 'Secret to sign and decode jsonwebtoken',
+          env: 'JWT_SECRET',
+          format: String,
+        },
       },
     });
   }

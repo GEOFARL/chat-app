@@ -14,7 +14,9 @@ type Properties = {
   iconName?: IconName;
   iconClassName?: string | undefined;
   buttonStyle?: ButtonStyle;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   activeClassName?: string | undefined;
+  disabled?: boolean;
   type?: 'button' | 'submit';
   size?: 'md' | 'sm';
 };
@@ -26,6 +28,8 @@ const Button: React.FC<Properties> = ({
   iconName,
   iconClassName,
   activeClassName,
+  onClick,
+  disabled,
   buttonStyle = 'primary',
   type = 'button',
   size = 'md',
@@ -38,6 +42,7 @@ const Button: React.FC<Properties> = ({
     buttonStyle === 'secondary' && 'bg-white',
     buttonStyle === 'link' && 'hover:underline',
     size === 'sm' && 'text-sm px-5 py-1.5',
+    disabled && 'bg-gray-400',
     className
   );
 
@@ -57,7 +62,12 @@ const Button: React.FC<Properties> = ({
           {icon}
         </Link>
       ) : (
-        <button className={buttonStyles} type={type}>
+        <button
+          className={buttonStyles}
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+        >
           <span className="w-full text-center">{label}</span>
           {icon}
         </button>

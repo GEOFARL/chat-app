@@ -20,7 +20,10 @@ class BaseHttpLogger implements Middleware {
       this.logger.info(`[${req.method}] on ${req.url}`);
       next();
     });
-    this.logger.info('HTTP Logger is initialized');
+  }
+
+  public get name(): string {
+    return 'HTTP Logger';
   }
 }
 

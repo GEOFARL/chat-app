@@ -7,6 +7,7 @@ import {
   App,
   RouterProvider,
   QueryClientProvider,
+  Notification,
 } from '~/libs/components/components';
 import { AppRoute } from '~/libs/enums/enums.js';
 
@@ -16,6 +17,7 @@ import { Home } from './pages/home/home.js';
 
 createRoot(document.querySelector('#root') as HTMLElement).render(
   <StrictMode>
+    <Notification />
     <QueryClientProvider>
       <RouterProvider
         routes={[
