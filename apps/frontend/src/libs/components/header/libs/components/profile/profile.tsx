@@ -3,17 +3,44 @@ import defaultAvatar from '~/assets/images/default-avatar.png';
 import styles from './styles.module.css';
 
 import { Button, Card, Image } from '~/libs/components/components.js';
-import { AppRoute } from '~/libs/enums/enums.js';
-import { useCallback, useState } from '~/libs/hooks/hooks.js';
+import { AppRoute, CookieName, QueryKey } from '~/libs/enums/enums.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import {
+  useCallback,
+  useCookies,
+  useNavigate,
+  useOutside,
+  useQueryClient,
+  useState,
+  useUser,
+} from '~/libs/hooks/hooks.js';
+import {
+  NotificationMessage,
+  notification,
+} from '~/libs/modules/notification/notification.js';
 
 const Profile: React.FC = () => {
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+  const removeCookie = useCookies([CookieName.TOKEN])[2];
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const isLoggedIn = false;
+  const isLoggedIn = Boolean(user);
 
   const handleOpen = useCallback(() => {
     setIsOpen((p) => !p);
   }, []);
+
+  const handleLogout = useCallback(() => {
+    queryClient.setQueryData([QueryKey.USER], null);
+    removeCookie(CookieName.TOKEN);
+    setIsOpen(false);
+    notification.success(NotificationMessage.SIGNED_OUT_SUCCESSFULLY);
+    navigate(AppRoute.ROOT);
+  }, [removeCookie, queryClient, navigate]);
+
+  const modalRef = useOutside({ isOpen, onClose: () => setIsOpen(false) });
 
   return (
     <div className="relative">
@@ -27,10 +54,20 @@ const Profile: React.FC = () => {
             'absolute flex flex-col items-start gap-2 top-[52px] right-[10px]',
             isOpen && styles['modal-open']
           )}
+          ref={modalRef}
         >
           {isLoggedIn ? (
             <>
-              <Button label="Log Out" size="sm" className="text-nowrap" />
+              <div>
+                <p className="font-semibold">{user?.fullName}</p>
+                <p className="text-sm text-gray-600">{user?.email}</p>
+              </div>
+              <Button
+                label="Log Out"
+                size="sm"
+                className="text-nowrap w-full"
+                onClick={handleLogout}
+              />
             </>
           ) : (
             <>

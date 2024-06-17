@@ -47,6 +47,10 @@ class BaseErrorHandler implements Middleware {
       }
     );
   }
+
+  public get name(): string {
+    return 'Error Handler';
+  }
 }
 
 export { BaseErrorHandler };

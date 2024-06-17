@@ -1,5 +1,7 @@
 import express, { type Express as Application } from 'express';
 import { type Server, createServer } from 'http';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import { type Controller, type Middleware } from '~/libs/types/types.js';
 
@@ -30,23 +32,34 @@ class BaseServerApplication {
   public initControllers(controllers: Controller[]) {
     controllers.forEach((controller) => {
       controller.init(this.app);
+      this.logger.info(`${controller.name} controller is initialized`);
     });
   }
 
   public initMiddlewares(middlewares: Middleware[]) {
+    this.app.use(
+      cors({
+        origin: this.config.ENV.APP.CLIENT_ORIGIN,
+        credentials: true,
+      })
+    );
     this.app.use(express.json());
+    this.app.use(cookieParser());
 
     middlewares.forEach((middleware) => {
       middleware.init(this.app);
+      this.logger.info(`${middleware.name} middleware is initialized`);
     });
   }
 
   public initErrorHandler(middleware: Middleware) {
     middleware.init(this.app);
+    this.logger.info(`${middleware.name} middleware is initialized`);
   }
 
   public initNotFoundHandler(middleware: Middleware) {
     middleware.init(this.app);
+    this.logger.info(`${middleware.name} middleware is initialized`);
   }
 
   public start() {

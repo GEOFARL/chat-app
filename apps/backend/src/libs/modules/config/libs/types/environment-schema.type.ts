@@ -6,6 +6,10 @@ type EnvironmentSchema = {
     ENVIRONMENT: ValueOf<typeof AppEnvironment>;
     HOST: string;
     PORT: number;
+    CLIENT_ORIGIN: string;
+  };
+  JWT: {
+    SECRET: string;
   };
 };
 
