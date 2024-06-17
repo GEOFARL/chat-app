@@ -16,7 +16,8 @@ import {
 } from '~/libs/modules/notification/notification.js';
 import { authApi } from '~/modules/auth/auth.js';
 import { UserSignInRequestDto } from '~/modules/user/user.js';
-import { PasswordInput } from '../password-input/password-input';
+
+import { PasswordInput } from '../password-input/password-input.js';
 
 const SignInForm: React.FC = () => {
   const queryClient = useQueryClient();

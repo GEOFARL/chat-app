@@ -1,6 +1,12 @@
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode } from 'react';
+
 import { AppRoute } from '~/libs/enums/enums.js';
-import { useLocation, useNavigate, useUser } from '~/libs/hooks/hooks.js';
+import {
+  useLocation,
+  useNavigate,
+  useUser,
+  useEffect,
+} from '~/libs/hooks/hooks.js';
 
 import { Container } from '~/libs/components/components.js';
 import { SignInForm, SignUpForm } from './components/components.js';

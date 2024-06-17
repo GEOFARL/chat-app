@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { JsonWebToken } from './libs/types/types.js';
+import { type JsonWebToken } from './libs/types/types.js';
 
 class BaseJsonWebToken implements JsonWebToken {
   private secret: string;
