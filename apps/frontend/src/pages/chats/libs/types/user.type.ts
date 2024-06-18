@@ -3,6 +3,7 @@ type User = {
   name: string;
   description: string;
   imageUrl: string;
+  isBot: boolean;
 };
 
 export { type User };

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { type Tab, type Message, type User } from '../../types/types.js';
-import { DEFAULT_MESSAGES, DEFAULT_USERS } from '../../constants/constants.js';
+import { DEFAULT_MESSAGES } from '../../constants/constants.js';
+import { type Message, type Tab, type User } from '../../types/types.js';
 
 type State = {
   users: User[];
@@ -25,16 +25,19 @@ type Actions = {
 };
 
 const useStore = create<State & Actions>((set, get) => ({
-  users: DEFAULT_USERS,
-  onlineUserIds: ['1', '2', '3', '4'],
-  activeChat: DEFAULT_USERS[0] ?? null,
+  users: [],
+  onlineUserIds: [],
+  activeChat: null,
   messages: DEFAULT_MESSAGES,
   activeTab: 'Online' as Tab,
-  activeUsers: DEFAULT_USERS,
-  searchedUsers: DEFAULT_USERS,
+  activeUsers: [],
+  searchedUsers: [],
   userSearch: '',
   setUsers: (users: User[]) => {
-    set(() => ({ users }));
+    set(() => ({
+      users,
+      onlineUserIds: users.filter((user) => user.isBot).map((user) => user.id),
+    }));
     get().setActiveTab(get().activeTab);
     get().setUserSearch('');
   },

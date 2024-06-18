@@ -9,6 +9,7 @@ const transformUser = (user: AuthResponseDto['user']): User => {
     id: user.id,
     imageUrl: getImageUrl(user.imageName),
     name: user.fullName,
+    isBot: user.isBot,
   };
 };
 
