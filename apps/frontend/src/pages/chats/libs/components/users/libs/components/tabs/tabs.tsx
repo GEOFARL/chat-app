@@ -2,14 +2,14 @@ import { Fragment } from 'react/jsx-runtime';
 
 import { Tab } from '../tab/tab.tsx';
 import { TAB_LIST } from '../../constants/constants.js';
-import { type Tab as TTab } from '../../types/types.js';
+import { useStore } from '~/pages/chats/libs/hooks/hooks.ts';
 
-type Properties = {
-  activeTab: TTab;
-  onChange: (newTab: TTab) => void;
-};
+const Tabs: React.FC = () => {
+  const { activeTab, setActiveTab } = useStore((state) => ({
+    activeTab: state.activeTab,
+    setActiveTab: state.setActiveTab,
+  }));
 
-const Tabs: React.FC<Properties> = ({ activeTab, onChange }) => {
   return (
     <div className="w-full flex">
       {TAB_LIST.map((tab, index) => {
@@ -19,14 +19,18 @@ const Tabs: React.FC<Properties> = ({ activeTab, onChange }) => {
               label={tab}
               key={index}
               isActive={activeTab === tab}
-              onChange={onChange}
+              onChange={(newTab) => setActiveTab(newTab)}
             />
           );
         }
 
         return (
           <Fragment key={index}>
-            <Tab label={tab} isActive={activeTab === tab} onChange={onChange} />
+            <Tab
+              label={tab}
+              isActive={activeTab === tab}
+              onChange={(newTab) => setActiveTab(newTab)}
+            />
             <div className="w-[1px] bg-gray-300" />
           </Fragment>
         );

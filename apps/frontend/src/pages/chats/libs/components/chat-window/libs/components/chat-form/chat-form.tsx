@@ -1,8 +1,11 @@
+import { formatTime } from '~/libs/helpers/helpers.js';
 import { Button, Input } from '~/libs/components/components.js';
-import { useCallback, useForm } from '~/libs/hooks/hooks.js';
+import { useCallback, useForm, useUser } from '~/libs/hooks/hooks.js';
+import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
 
 const ChatForm: React.FC = () => {
-  const { handleSubmit, control } = useForm<{
+  const { user } = useUser();
+  const { handleSubmit, control, setValue } = useForm<{
     message: string;
   }>({
     defaultValues: {
@@ -10,7 +13,19 @@ const ChatForm: React.FC = () => {
     },
   });
 
-  const onSubmit = useCallback(() => {}, []);
+  const addMessage = useStore((state) => state.addMessage);
+
+  const onSubmit = useCallback(
+    (data: { message: string }) => {
+      addMessage({
+        author: user?.fullName as string,
+        message: data.message,
+        time: formatTime(new Date()),
+      });
+      setValue('message', '');
+    },
+    [setValue, addMessage, user?.fullName]
+  );
 
   return (
     <form
@@ -30,6 +45,7 @@ const ChatForm: React.FC = () => {
         label="Send message"
         size="sm"
         className="text-nowrap text-[13px] px-14 py-2 rounded-md"
+        type="submit"
       />
     </form>
   );

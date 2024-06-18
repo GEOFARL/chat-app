@@ -5,3 +5,4 @@ export { useForm, useController as useFormController } from 'react-hook-form';
 export { useCookies } from 'react-cookie';
 export { useUser } from './use-user/use-user.hook.js';
 export { useOutside } from './use-outside/use-outside.hook.js';
+export { useScrollIntoView } from './use-scroll-into-view/use-scroll-into-view.hook.js';

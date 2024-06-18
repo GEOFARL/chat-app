@@ -15,4 +15,6 @@ export {
   type UserDto,
 } from './modules/user/user.js';
 
+export { formatTime } from './libs/helpers/helpers.js';
+
 export { type AuthResponseDto } from './modules/auth/auth.js';
