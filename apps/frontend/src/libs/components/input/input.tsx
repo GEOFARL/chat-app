@@ -12,6 +12,7 @@ type Properties<T extends FieldValues> = {
   control: Control<T, null>;
   name: FieldPath<T>;
   type?: 'email' | 'password' | 'text';
+  isVisuallyHiddenLabel?: boolean;
   placeholder?: string;
 };
 
@@ -21,6 +22,7 @@ const Input = <T extends FieldValues>({
   placeholder,
   control,
   name,
+  isVisuallyHiddenLabel = false,
   type = 'text',
 }: Properties<T>) => {
   const { field } = useFormController({ control, name });
@@ -32,7 +34,14 @@ const Input = <T extends FieldValues>({
 
   return (
     <label className="flex flex-col gap-1 justify-start w-full">
-      <span className="text-lg pl-1">{label}</span>
+      <span
+        className={getValidClassNames(
+          'text-lg pl-1',
+          isVisuallyHiddenLabel && 'hidden'
+        )}
+      >
+        {label}
+      </span>
       <input
         type={type}
         placeholder={placeholder}
