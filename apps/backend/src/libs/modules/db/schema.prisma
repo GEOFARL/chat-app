@@ -13,6 +13,7 @@ model User {
   password  String
   fullName  String
   imageName String
+  isBot     Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
