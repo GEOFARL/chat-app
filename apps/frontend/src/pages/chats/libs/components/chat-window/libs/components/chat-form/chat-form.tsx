@@ -1,5 +1,5 @@
 import { Button, Input } from '~/libs/components/components.js';
-import { useCallback, useForm } from '~/libs/hooks/hooks';
+import { useCallback, useForm } from '~/libs/hooks/hooks.js';
 
 const ChatForm: React.FC = () => {
   const { handleSubmit, control } = useForm<{
