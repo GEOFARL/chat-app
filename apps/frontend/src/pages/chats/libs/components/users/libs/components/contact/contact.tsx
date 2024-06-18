@@ -1,14 +1,34 @@
+import { useCallback } from '~/libs/hooks/hooks.js';
 import { Image } from '~/libs/components/components.js';
+import { getValidClassNames } from '~/libs/helpers/helpers.js';
+
+import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
+import { type User } from '~/pages/chats/libs/types/types.js';
 
 type Properties = {
-  name: string;
-  description: string;
-  imageUrl: string;
+  contact: User;
 };
 
-const Contact: React.FC<Properties> = ({ name, description, imageUrl }) => {
+const Contact: React.FC<Properties> = ({ contact }) => {
+  const { name, description, imageUrl } = contact;
+
+  const { activeChat, setActiveChat } = useStore((state) => ({
+    activeChat: state.activeChat,
+    setActiveChat: state.setActiveChat,
+  }));
+
+  const handleClick = useCallback(() => {
+    setActiveChat(contact);
+  }, [setActiveChat, contact]);
+
   return (
-    <button className="flex gap-4 items-center px-4 py-1.5">
+    <button
+      className={getValidClassNames(
+        'flex gap-4 items-center px-4 py-1.5',
+        activeChat === contact && 'bg-grey-200'
+      )}
+      onClick={handleClick}
+    >
       <div className="w-16 h-16 flex-shrink-0 relative">
         <Image
           src={imageUrl}

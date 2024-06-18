@@ -1,19 +1,26 @@
 import { useCallback, useForm } from '~/libs/hooks/hooks.js';
 import { Input } from '~/libs/components/components.js';
+import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
 
 const SearchForm: React.FC = () => {
-  const { handleSubmit, control } = useForm<{ search: string }>({
+  const { userSearch, setUserSearch } = useStore((state) => ({
+    userSearch: state.userSearch,
+    setUserSearch: state.setUserSearch,
+  }));
+
+  const { control, getValues } = useForm<{ search: string }>({
     defaultValues: {
-      search: '',
+      search: userSearch,
     },
   });
 
-  const onSubmit = useCallback((data: unknown) => {
-    console.log(data);
-  }, []);
+  const handleChange = useCallback(() => {
+    const searchValue = getValues().search;
+    setUserSearch(searchValue);
+  }, [getValues, setUserSearch]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4">
+    <form onChange={handleChange} className="p-4">
       <Input
         label="Search contacts"
         isVisuallyHiddenLabel
