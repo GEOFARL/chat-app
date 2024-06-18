@@ -1,8 +1,12 @@
 import { db } from '~/libs/modules/db/db.js';
 import { type UserDto, type UserSignUpRequestDto } from './libs/types/types.js';
+import { type AuthResponseDto } from '../auth/auth.js';
+import { exclude } from '~/libs/helpers/helpers.js';
 
 class UserRepository {
-  public async create(user: UserSignUpRequestDto): Promise<UserDto> {
+  public async create(
+    user: UserSignUpRequestDto & { imageName: string }
+  ): Promise<UserDto> {
     return db.user.create({
       data: user,
     });
@@ -22,6 +26,20 @@ class UserRepository {
         id,
       },
     });
+  }
+
+  public async findAllWithoutCurrent(
+    currentId: string
+  ): Promise<AuthResponseDto['user'][]> {
+    const users = await db.user.findMany({
+      where: {
+        id: {
+          not: currentId,
+        },
+      },
+    });
+
+    return users.map((user) => exclude(user, ['password']));
   }
 }
 

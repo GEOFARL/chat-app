@@ -64,6 +64,14 @@ class BaseConfig implements Config {
           format: String,
         },
       },
+      IMAGES: {
+        STORAGE_PATH: {
+          default: null,
+          doc: 'Path to store application images',
+          format: String,
+          env: 'IMAGES_STORAGE_PATH',
+        },
+      },
     });
   }
 }

@@ -1,1 +1,6 @@
-export { AppEnvironment, ApiPath, CookieName } from '@chat-app/shared';
+export {
+  AppEnvironment,
+  ApiPath,
+  CookieName,
+  StaticFilesPath,
+} from '@chat-app/shared';

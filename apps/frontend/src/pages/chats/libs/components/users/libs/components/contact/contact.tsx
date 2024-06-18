@@ -1,4 +1,4 @@
-import { useCallback } from '~/libs/hooks/hooks.js';
+import { useCallback, useMemo } from '~/libs/hooks/hooks.js';
 import { Image } from '~/libs/components/components.js';
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
 
@@ -10,12 +10,17 @@ type Properties = {
 };
 
 const Contact: React.FC<Properties> = ({ contact }) => {
-  const { name, description, imageUrl } = contact;
+  const { name, description, imageUrl, id } = contact;
 
-  const { activeChat, setActiveChat } = useStore((state) => ({
+  const { activeChat, setActiveChat, onlineUserIds } = useStore((state) => ({
     activeChat: state.activeChat,
     setActiveChat: state.setActiveChat,
+    onlineUserIds: state.onlineUserIds,
   }));
+
+  const isOnline = useMemo<boolean>(() => {
+    return onlineUserIds.includes(id);
+  }, [onlineUserIds, id]);
 
   const handleClick = useCallback(() => {
     setActiveChat(contact);
@@ -36,7 +41,9 @@ const Contact: React.FC<Properties> = ({ contact }) => {
           className="w-full h-full object-center"
         />
 
-        <div className="absolute w-4 h-4 -bottom-[4px] -right-[4px] bg-green-500 rounded-full" />
+        {isOnline && (
+          <div className="absolute w-4 h-4 -bottom-[4px] -right-[4px] bg-green-500 rounded-full" />
+        )}
       </div>
 
       <div className="flex flex-col items-start text-left">

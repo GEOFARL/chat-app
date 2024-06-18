@@ -16,7 +16,7 @@ type State = {
 type Actions = {
   setUsers: (users: User[]) => void;
   setOnlineUserIds: (onlineUserIds: string[]) => void;
-  setActiveChat: (activeChat: User) => void;
+  setActiveChat: (activeChat: User | null) => void;
   setMessages: (messages: Message[]) => void;
   setActiveTab: (tab: Tab) => void;
   setUserSearch: (userSearch: string) => void;
@@ -24,7 +24,7 @@ type Actions = {
   addMessage: (newMessage: Message) => void;
 };
 
-const useStore = create<State & Actions>((set) => ({
+const useStore = create<State & Actions>((set, get) => ({
   users: DEFAULT_USERS,
   onlineUserIds: ['1', '2', '3', '4'],
   activeChat: DEFAULT_USERS[0] ?? null,
@@ -35,8 +35,10 @@ const useStore = create<State & Actions>((set) => ({
   userSearch: '',
   setUsers: (users: User[]) => {
     set(() => ({ users }));
+    get().setActiveTab(get().activeTab);
+    get().setUserSearch('');
   },
-  setActiveChat: (activeChat: User) => {
+  setActiveChat: (activeChat: User | null) => {
     set(() => ({ activeChat }));
   },
   setOnlineUserIds: (onlineUserIds: string[]) => {
@@ -48,15 +50,17 @@ const useStore = create<State & Actions>((set) => ({
   setActiveTab: (tab: Tab) => {
     switch (tab) {
       case 'All': {
-        return set((state) => ({ activeTab: tab, activeUsers: state.users }));
+        set((state) => ({ activeTab: tab, activeUsers: state.users }));
+        return get().setUserSearch(get().userSearch);
       }
       case 'Online': {
-        return set((state) => ({
+        set((state) => ({
           activeTab: tab,
-          activeUsers: DEFAULT_USERS.filter((user) =>
+          activeUsers: state.users.filter((user) =>
             state.onlineUserIds.includes(user.id)
           ),
         }));
+        return get().setUserSearch(get().userSearch);
       }
     }
   },

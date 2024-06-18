@@ -1,4 +1,9 @@
-export { AppEnvironment, ApiPath, CookieName } from './libs/enums/enums.js';
+export {
+  AppEnvironment,
+  ApiPath,
+  CookieName,
+  StaticFilesPath,
+} from './libs/enums/enums.js';
 export { type ValueOf } from './libs/types/types.js';
 export { ApplicationError } from './libs/exceptions/exceptions.js';
 export {
