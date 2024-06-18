@@ -11,6 +11,9 @@ type EnvironmentSchema = {
   JWT: {
     SECRET: string;
   };
+  IMAGES: {
+    STORAGE_PATH: string;
+  };
 };
 
 export { type EnvironmentSchema };

@@ -1,3 +1,5 @@
+import { imageGenerator } from '~/libs/modules/image-generator/image-generator.js';
+import { UserController } from './user.controller.js';
 import { UserRepository } from './user.repository.js';
 import { UserService } from './user.service.js';
 
@@ -5,9 +7,14 @@ const userRepository = new UserRepository();
 
 const userService = new UserService({
   userRepository,
+  imageGenerator,
 });
 
-export { userService, type UserService };
+const userController = new UserController({
+  userService,
+});
+
+export { userController, userService, type UserService };
 export {
   type UserSignUpRequestDto,
   type UserSignInRequestDto,

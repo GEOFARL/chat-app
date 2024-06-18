@@ -9,3 +9,4 @@ const authApi = new AuthApi({
 });
 
 export { authApi };
+export { type AuthResponseDto } from './libs/types/types.js';

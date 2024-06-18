@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 import { Button, Card, Image } from '~/libs/components/components.js';
 import { AppRoute, CookieName, QueryKey } from '~/libs/enums/enums.js';
-import { getValidClassNames } from '~/libs/helpers/helpers.js';
+import { getImageUrl, getValidClassNames } from '~/libs/helpers/helpers.js';
 import {
   useCallback,
   useCookies,
@@ -45,7 +45,11 @@ const Profile: React.FC = () => {
   return (
     <div className="relative z-50">
       <button onClick={handleOpen}>
-        <Image src={defaultAvatar} alt="user avatar" className="w-10 h-10" />
+        <Image
+          src={user?.imageName ? getImageUrl(user.imageName) : defaultAvatar}
+          alt="user avatar"
+          className="w-10 h-10"
+        />
       </button>
 
       {isOpen && (
