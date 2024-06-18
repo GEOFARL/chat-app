@@ -1,5 +1,5 @@
 import { Image } from '~/libs/components/components.js';
-import { useStore } from '~/pages/chats/libs/hooks/hooks';
+import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
 
 const ChatInfo: React.FC = () => {
   const activeChat = useStore((state) => state.activeChat);
