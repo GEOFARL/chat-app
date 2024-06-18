@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
   const modalRef = useOutside({ isOpen, onClose: () => setIsOpen(false) });
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <button onClick={handleOpen}>
         <Image src={defaultAvatar} alt="user avatar" className="w-10 h-10" />
       </button>
@@ -59,7 +59,9 @@ const Profile: React.FC = () => {
           {isLoggedIn ? (
             <>
               <div>
-                <p className="font-semibold">{user?.fullName}</p>
+                <p className="font-semibold text-nowrap max-w-[20ch] overflow-hidden text-ellipsis">
+                  {user?.fullName}
+                </p>
                 <p className="text-sm text-gray-600">{user?.email}</p>
               </div>
               <Button
