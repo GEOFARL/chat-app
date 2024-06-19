@@ -1,5 +1,5 @@
 import { getValidClassNames } from '~/libs/helpers/helpers.js';
-import { type Tab as TTab } from '../../types/types.js';
+import { type Tab as TTab } from '../../../../../types/types.js';
 
 const Tab: React.FC<{
   isActive?: boolean;

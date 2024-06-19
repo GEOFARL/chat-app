@@ -30,7 +30,7 @@ const Chats: React.FC = () => {
   return (
     <AuthWrapper>
       <Container className="w-full">
-        <div className="w-full max-h-screen-minus-header h-full flex flex-row md:px-10 md:py-6 relative min-h-screen-minus-header md:min-h-0">
+        <div className="w-full max-h-screen-minus-header h-full flex flex-row md:px-10 md:py-6 relative min-h-screen-minus-header">
           {activeChat ? (
             <ChatWindow />
           ) : (

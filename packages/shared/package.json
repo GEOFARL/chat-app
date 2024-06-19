@@ -2,9 +2,10 @@
   "name": "@chat-app/shared",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "build/index.js",
+  "types": "src/index.ts",
   "scripts": {
-    "build": "rm -rf build && tsc -p tsconfig.json"
+    "build": "rm -rf build && tsc -p tsconfig.json && tsc-alias -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
