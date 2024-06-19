@@ -12,6 +12,6 @@
     "build:backend": "npm run build -w apps/backend",
     "build:shared": "npm run build -w packages/shared",
     "start": "npm run start -w apps/backend",
-    "make-all-work": "cd apps/backend && npm run migrate && cd ../.. && npm run build && npm run start"
+    "make-all-work": "npm ci && cd apps/backend && npm run migrate && cd ../.. && npm run build && npm run start"
   }
 }
