@@ -8,6 +8,7 @@ import {
   RouterProvider,
   QueryClientProvider,
   Notification,
+  ProtectedRoute,
 } from '~/libs/components/components';
 import { AppRoute } from '~/libs/enums/enums.js';
 
@@ -39,7 +40,7 @@ createRoot(document.querySelector('#root') as HTMLElement).render(
                 path: AppRoute.SIGN_UP,
               },
               {
-                element: <Chats />,
+                element: <ProtectedRoute page={<Chats />} />,
                 path: AppRoute.CHATS,
               },
             ],

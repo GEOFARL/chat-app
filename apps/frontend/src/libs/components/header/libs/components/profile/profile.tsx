@@ -11,6 +11,7 @@ import {
   useNavigate,
   useOutside,
   useQueryClient,
+  useRef,
   useState,
   useUser,
 } from '~/libs/hooks/hooks.js';
@@ -24,6 +25,7 @@ const Profile: React.FC = () => {
   const queryClient = useQueryClient();
   const removeCookie = useCookies([CookieName.TOKEN])[2];
   const navigate = useNavigate();
+  const profileAvatarRef = useRef<HTMLButtonElement | null>(null);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isLoggedIn = Boolean(user);
@@ -40,11 +42,15 @@ const Profile: React.FC = () => {
     navigate(AppRoute.ROOT);
   }, [removeCookie, queryClient, navigate]);
 
-  const modalRef = useOutside({ isOpen, onClose: () => setIsOpen(false) });
+  const modalRef = useOutside({
+    isOpen,
+    onClose: () => setIsOpen(false),
+    notTriggerElements: [profileAvatarRef?.current],
+  });
 
   return (
     <div className="relative z-50">
-      <button onClick={handleOpen}>
+      <button onClick={handleOpen} ref={profileAvatarRef}>
         <Image
           src={user?.imageName ? getImageUrl(user.imageName) : defaultAvatar}
           alt="user avatar"
