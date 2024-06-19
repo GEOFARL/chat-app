@@ -1,5 +1,5 @@
 import { type Server as HTTPServer } from 'http';
-import { Server, type Socket, type Server as SocketServer } from 'socket.io';
+import { Server, Socket, type Server as SocketServer } from 'socket.io';
 import { SocketEvent } from './libs/enums/enums.js';
 import { type Socket as SocketT } from './libs/types/types.js';
 import { type OnlineUsers } from '~/modules/online-users/online-users.js';
@@ -40,6 +40,26 @@ class BaseSocket implements SocketT {
         this.onlineUsers.getUser(socket.id)
       );
       this.onlineUsers.removeUser(socket.id);
+    });
+
+    socket.on(SocketEvent.START_TYPING, (receiverId: string) => {
+      const socketId = this.onlineUsers.getSocketId(receiverId);
+
+      if (!socketId) {
+        return;
+      }
+
+      this.io.to(socketId).emit(SocketEvent.START_TYPING);
+    });
+
+    socket.on(SocketEvent.STOP_TYPING, (receiverId: string) => {
+      const socketId = this.onlineUsers.getSocketId(receiverId);
+
+      if (!socketId) {
+        return;
+      }
+
+      this.io.to(socketId).emit(SocketEvent.STOP_TYPING);
     });
   }
 

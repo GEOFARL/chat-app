@@ -24,6 +24,7 @@ type State = {
   activeTab: Tab;
   activeUsers: User[];
   searchedUsers: User[];
+  isTyping: boolean;
   userSearch: string;
 };
 
@@ -99,6 +100,14 @@ const useStore = create<State & Actions>((set, get) => {
     }));
   };
 
+  const handleStartTyping = () => {
+    set({ isTyping: true });
+  };
+
+  const handleStopTyping = () => {
+    set({ isTyping: false });
+  };
+
   return {
     users: [],
     onlineUserIds: [],
@@ -108,6 +117,7 @@ const useStore = create<State & Actions>((set, get) => {
     activeUsers: [],
     searchedUsers: [],
     userSearch: '',
+    isTyping: false,
 
     updateUsers: () => {
       get().setActiveTab(get().activeTab);
@@ -177,6 +187,8 @@ const useStore = create<State & Actions>((set, get) => {
       socket.on(SocketEvent.USERS_ONLINE, handleUsersOnline);
       socket.on(SocketEvent.MESSAGE_NEW, handleNewMessage);
       socket.on(SocketEvent.LOGOUT, handleLogout);
+      socket.on(SocketEvent.START_TYPING, handleStartTyping);
+      socket.on(SocketEvent.STOP_TYPING, handleStopTyping);
     },
 
     removeListeners: (socket) => {
@@ -184,6 +196,8 @@ const useStore = create<State & Actions>((set, get) => {
       socket.off(SocketEvent.USERS_ONLINE, handleUsersOnline);
       socket.off(SocketEvent.MESSAGE_NEW, handleNewMessage);
       socket.off(SocketEvent.LOGOUT, handleLogout);
+      socket.off(SocketEvent.START_TYPING, handleStartTyping);
+      socket.off(SocketEvent.STOP_TYPING, handleStopTyping);
     },
   };
 });
