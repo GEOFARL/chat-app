@@ -26,10 +26,13 @@ const PasswordInput = <T extends FieldValues>({ control }: Properties<T>) => {
 
       <button
         onClick={handleChangeVisibility}
-        className="absolute right-[15px] top-[42px]"
+        className="absolute right-[12px] top-[37px] md:right-[15px] md:top-[42px]"
         type="button"
       >
-        <Icon name={isVisible ? 'eye' : 'eye-off'} className="w-6 h-6" />
+        <Icon
+          name={isVisible ? 'eye' : 'eye-off'}
+          className="w-5 h-5 md:w-6 md:h-6"
+        />
       </button>
     </div>
   );

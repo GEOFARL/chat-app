@@ -12,7 +12,7 @@ const ChatInfo: React.FC = () => {
 
   return (
     <div className="flex flex-row bg-grey-100">
-      <div className="w-44 h-44 flex-shrink-0">
+      <div className="w-44 h-44 flex-shrink-0 hidden sm:block">
         <Image src={imageUrl} alt="chat character" className="w-full h-full" />
       </div>
 

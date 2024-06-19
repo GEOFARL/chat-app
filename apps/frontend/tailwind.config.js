@@ -37,6 +37,9 @@ export default {
       maxHeight: {
         'screen-minus-header': 'calc(100vh - 64px)',
       },
+      minHeight: {
+        'screen-minus-header': 'calc(100vh - 64px)',
+      },
       boxShadow: {
         '2xl': '4px 4px 10px rgba(0, 0, 0, 0.2)',
       },

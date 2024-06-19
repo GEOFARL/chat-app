@@ -87,7 +87,7 @@ const ChatForm: React.FC = () => {
 
   return (
     <form
-      className="pl-2 pb-4 pr-6 pt-6 flex gap-3"
+      className="pl-2 pb-4 pr-6 pt-6 flex gap-3 flex-col sm:flex-row"
       onSubmit={handleSubmit(onSubmit)}
       onKeyDown={handleKeyDown}
       onChange={handleInputChange}
@@ -104,7 +104,7 @@ const ChatForm: React.FC = () => {
       <Button
         label="Send message"
         size="sm"
-        className="text-nowrap text-[13px] px-14 py-2 rounded-md"
+        className="text-nowrap md:text-[13px] px-14 py-2 rounded-md"
         type="submit"
       />
     </form>

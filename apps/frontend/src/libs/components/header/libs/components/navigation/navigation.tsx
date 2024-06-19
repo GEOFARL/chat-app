@@ -10,7 +10,7 @@ const Navigation: React.FC = () => {
 
   return (
     <nav className="flex items-center">
-      <ul className="flex flex-row items-center gap-8">
+      <ul className="flex flex-row items-center gap-5 md:gap-8">
         <NavigationItem to={AppRoute.ROOT} label="Home" />
         {isLoggedIn && <NavigationItem to={AppRoute.CHATS} label="Chats" />}
       </ul>

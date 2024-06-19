@@ -10,7 +10,7 @@ type Properties = {
 
 const NavigationItem: React.FC<Properties> = ({ to, label }) => {
   return (
-    <li className="text-lg">
+    <li className="text-md md:text-lg">
       <Button
         href={to}
         label={label}

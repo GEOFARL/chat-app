@@ -53,7 +53,7 @@ const SignInForm: React.FC = () => {
   );
 
   return (
-    <Card className="w-[600px] rounded-xl px-10">
+    <Card className="w-full md:w-[600px] rounded-xl px-4 md:px-10 bg-transparent md:bg-white">
       <p className="flex flex-row items-center gap-1.5 text-sm">
         <span>Go Back</span>
         <Link
@@ -65,7 +65,7 @@ const SignInForm: React.FC = () => {
       </p>
       <div className="flex flex-col items-center gap-2 mb-4">
         <h2 className="text-4xl font-semibold">Sign In</h2>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-center md:text-left">
           Don't have an account? Go to{' '}
           <Link to={AppRoute.SIGN_UP} className="text-blue-500 hover:underline">
             Create an account
