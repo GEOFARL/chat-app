@@ -8,6 +8,12 @@ import { type Controller, type Middleware } from '~/libs/types/types.js';
 import { type Config } from '../config/config.js';
 import { type Logger } from '../logger/logger.js';
 import { type Socket } from '../socket/socket.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { AppEnvironment } from '~/libs/enums/enums.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 type Constructor = {
   config: Config;
@@ -35,6 +41,26 @@ class BaseServerApplication {
       controller.init(this.app);
       this.logger.info(`${controller.name} controller is initialized`);
     });
+
+    if (this.config.ENV.APP.ENVIRONMENT === AppEnvironment.PRODUCTION) {
+      this.app.use(
+        express.static(
+          path.join(__dirname, '../../../../../', 'frontend', 'build')
+        )
+      );
+
+      this.app.get('*', (req, res) => {
+        res.sendFile(
+          path.join(
+            __dirname,
+            '../../../../../',
+            'frontend',
+            'build',
+            'index.html'
+          )
+        );
+      });
+    }
   }
 
   public initMiddlewares(middlewares: Middleware[]) {

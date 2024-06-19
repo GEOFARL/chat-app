@@ -4,10 +4,8 @@ type Constructor = {
 };
 
 class ApplicationError extends Error {
-  public constructor({ cause, message }: Constructor) {
-    super(message, {
-      cause,
-    });
+  public constructor({ message }: Constructor) {
+    super(message);
   }
 }
 
