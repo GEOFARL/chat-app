@@ -1,14 +1,16 @@
-import { formatTime } from '~/libs/helpers/helpers.js';
+import { debounce, formatTime } from '~/libs/helpers/helpers.js';
 import { Button, Input } from '~/libs/components/components.js';
 import {
   useCallback,
   useForm,
   useMutation,
+  useState,
   useUser,
 } from '~/libs/hooks/hooks.js';
 import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
-import { QueryKey } from '~/libs/enums/enums.js';
+import { QueryKey, SocketEvent } from '~/libs/enums/enums.js';
 import { chatMessagesApi } from '~/modules/chat-messages/chat-messages.js';
+import { socket } from '~/libs/modules/socket/socket.js';
 
 const ChatForm: React.FC = () => {
   const { user } = useUser();
@@ -63,11 +65,31 @@ const ChatForm: React.FC = () => {
     [handleSubmit, onSubmit]
   );
 
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+
+  // eslint-disable-next-line
+  const debouncedSetTyping = useCallback(
+    debounce(() => {
+      setIsTyping(false);
+      socket.emit(SocketEvent.STOP_TYPING, activeChat!.id);
+    }, 2000),
+    []
+  );
+
+  const handleInputChange = useCallback(() => {
+    if (!isTyping) {
+      setIsTyping(true);
+      socket.emit(SocketEvent.START_TYPING, activeChat!.id);
+    }
+    debouncedSetTyping();
+  }, [isTyping, debouncedSetTyping, activeChat]);
+
   return (
     <form
       className="pl-2 pb-4 pr-6 pt-6 flex gap-3"
       onSubmit={handleSubmit(onSubmit)}
       onKeyDown={handleKeyDown}
+      onChange={handleInputChange}
     >
       <Input
         control={control}
