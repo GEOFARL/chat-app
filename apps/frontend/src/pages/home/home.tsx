@@ -11,12 +11,12 @@ const Home: React.FC = () => {
   return (
     <AuthWrapper>
       <Container>
-        <div className="flex flex-col items-center space-y-8">
+        <div className="flex flex-col items-center space-y-5 md:space-y-8">
           <div className="flex flex-col pt-12 items-center space-y-2">
-            <h1 className="text-white text-7xl font-bold uppercase drop-shadow-2xl">
+            <h1 className="text-white text-5xl md:text-7xl font-bold uppercase drop-shadow-2xl">
               Chat bots
             </h1>
-            <p className="text-xl text-zinc-100 opacity-60">
+            <p className="text-lg md:text-xl text-zinc-100 opacity-60">
               Never be bored again
             </p>
           </div>

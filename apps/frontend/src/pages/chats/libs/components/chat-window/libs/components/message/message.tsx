@@ -17,7 +17,7 @@ const Message = forwardRef<HTMLDivElement, Properties>(
     return (
       <div
         className={getValidClassNames(
-          'flex flex-col w-3/4 shadow-2xl relative rounded-lg z-10',
+          'flex flex-col w-5/6 sm:w-4/5 md:w-3/4 shadow-2xl relative rounded-lg z-10',
           isMine && 'self-end'
         )}
         ref={ref}

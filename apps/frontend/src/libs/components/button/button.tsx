@@ -35,9 +35,9 @@ const Button: React.FC<Properties> = ({
   size = 'md',
 }) => {
   const buttonStyles = getValidClassNames(
-    'flex flex-row items-center justify-center gap-2 text-lg',
+    'flex flex-row items-center justify-center gap-2 text-md md:text-lg',
     buttonStyle !== 'link' &&
-      'px-6 py-2 rounded-md hover:opacity-80 active:opacity-60',
+      'px-4 py-1.5 md:px-6 md:py-2 rounded-md hover:opacity-80 active:opacity-60',
     buttonStyle === 'primary' && 'bg-blue-500 text-white',
     buttonStyle === 'secondary' && 'bg-white',
     buttonStyle === 'link' && 'hover:underline',

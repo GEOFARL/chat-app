@@ -39,9 +39,11 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <div className="bg-grey min-h-screen">
-      <div className="flex flex-col justify-center pt-44 pb-20">
-        <Container>{handleScreenRender(pathname)}</Container>
+    <div className="bg-white md:bg-grey min-h-screen">
+      <div className="flex flex-col justify-center pt-16 pb-16 md:pt-44 md:pb-20">
+        <Container className="w-full md:w-auto">
+          {handleScreenRender(pathname)}
+        </Container>
       </div>
     </div>
   );

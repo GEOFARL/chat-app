@@ -54,14 +54,14 @@ const Profile: React.FC = () => {
         <Image
           src={user?.imageName ? getImageUrl(user.imageName) : defaultAvatar}
           alt="user avatar"
-          className="w-10 h-10"
+          className="w-8 h-8 md:w-10 md:h-10"
         />
       </button>
 
       {isOpen && (
         <Card
           className={getValidClassNames(
-            'absolute flex flex-col items-start gap-2 top-[52px] right-[10px]',
+            'absolute flex flex-col items-start gap-2 top-[52px] right-[10px] p-4 md:p-6',
             isOpen && styles['modal-open']
           )}
           ref={modalRef}

@@ -7,9 +7,10 @@ import { type User } from '~/pages/chats/libs/types/types.js';
 
 type Properties = {
   contact: User;
+  onClick: () => void;
 };
 
-const Contact: React.FC<Properties> = ({ contact }) => {
+const Contact: React.FC<Properties> = ({ contact, onClick }) => {
   const { name, description, imageUrl, id } = contact;
 
   const { activeChat, setActiveChat, onlineUserIds } = useStore((state) => ({
@@ -24,7 +25,8 @@ const Contact: React.FC<Properties> = ({ contact }) => {
 
   const handleClick = useCallback(() => {
     setActiveChat(contact);
-  }, [setActiveChat, contact]);
+    onClick();
+  }, [setActiveChat, contact, onClick]);
 
   return (
     <button

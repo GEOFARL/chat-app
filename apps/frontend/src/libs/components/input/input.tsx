@@ -28,7 +28,7 @@ const Input = <T extends FieldValues>({
   const { field } = useFormController({ control, name });
 
   const inputClasses = getValidClassNames(
-    'border-2 rounded-md px-4 py-2 text-md',
+    'border-2 rounded-md px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-md',
     className
   );
 
@@ -36,7 +36,7 @@ const Input = <T extends FieldValues>({
     <label className="flex flex-col gap-1 justify-start w-full">
       <span
         className={getValidClassNames(
-          'text-lg pl-1',
+          'text-md md:text-lg pl-1',
           isVisuallyHiddenLabel && 'hidden'
         )}
       >
