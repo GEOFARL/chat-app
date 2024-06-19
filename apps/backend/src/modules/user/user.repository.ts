@@ -41,6 +41,14 @@ class UserRepository {
 
     return users.map((user) => exclude(user, ['password']));
   }
+
+  public async findAllUsers(): Promise<UserDto[]> {
+    return db.user.findMany({
+      where: {
+        isBot: false,
+      },
+    });
+  }
 }
 
 export { UserRepository };

@@ -1,0 +1,3 @@
+const DEBOUNCE_TIME = 1000;
+
+export { DEBOUNCE_TIME };

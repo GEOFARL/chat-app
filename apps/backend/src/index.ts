@@ -9,6 +9,8 @@ import { staticFiles } from './middlewares/static-files/static-files.js';
 import { authController } from './modules/auth/auth.js';
 import { chatMessagesController } from './modules/chat-messages/chat-messages.js';
 import { userController } from './modules/user/user.js';
+import { chatBotsManager } from './modules/chat-bots-manager/chat-bots-manager.js';
+chatBotsManager;
 
 serverApplication.initSocket(socket);
 
