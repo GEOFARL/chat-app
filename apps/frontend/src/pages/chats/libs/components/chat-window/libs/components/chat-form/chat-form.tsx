@@ -1,7 +1,14 @@
 import { formatTime } from '~/libs/helpers/helpers.js';
 import { Button, Input } from '~/libs/components/components.js';
-import { useCallback, useForm, useUser } from '~/libs/hooks/hooks.js';
+import {
+  useCallback,
+  useForm,
+  useMutation,
+  useUser,
+} from '~/libs/hooks/hooks.js';
 import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
+import { QueryKey } from '~/libs/enums/enums.js';
+import { chatMessagesApi } from '~/modules/chat-messages/chat-messages.js';
 
 const ChatForm: React.FC = () => {
   const { user } = useUser();
@@ -13,24 +20,54 @@ const ChatForm: React.FC = () => {
     },
   });
 
-  const addMessage = useStore((state) => state.addMessage);
+  const { addMessage, activeChat } = useStore((state) => ({
+    addMessage: state.addMessage,
+    activeChat: state.activeChat,
+  }));
+
+  const { mutate: sendMessage } = useMutation({
+    mutationKey: [QueryKey.MESSAGE, user?.id, activeChat?.id],
+    mutationFn: (message: string) =>
+      chatMessagesApi.sendMessage({
+        message,
+        receiverUserId: activeChat!.id,
+        senderUserId: user!.id,
+      }),
+    onSuccess: (data) => {
+      addMessage({
+        author: user?.fullName as string,
+        message: data.content,
+        time: formatTime(new Date()),
+      });
+    },
+  });
 
   const onSubmit = useCallback(
     (data: { message: string }) => {
-      addMessage({
-        author: user?.fullName as string,
-        message: data.message,
-        time: formatTime(new Date()),
-      });
+      if (!data.message.trim()) {
+        return;
+      }
+      sendMessage(data.message);
       setValue('message', '');
     },
-    [setValue, addMessage, user?.fullName]
+    [setValue, sendMessage]
+  );
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLFormElement>) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        handleSubmit(onSubmit)();
+      }
+    },
+    [handleSubmit, onSubmit]
   );
 
   return (
     <form
       className="pl-2 pb-4 pr-6 pt-6 flex gap-3"
       onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
     >
       <Input
         control={control}
