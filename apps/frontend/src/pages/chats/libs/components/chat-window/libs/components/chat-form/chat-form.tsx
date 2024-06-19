@@ -11,6 +11,7 @@ import { useStore } from '~/pages/chats/libs/hooks/hooks.js';
 import { QueryKey, SocketEvent } from '~/libs/enums/enums.js';
 import { chatMessagesApi } from '~/modules/chat-messages/chat-messages.js';
 import { socket } from '~/libs/modules/socket/socket.js';
+import { DEBOUNCE_TIME } from './libs/constants/constants.js';
 
 const ChatForm: React.FC = () => {
   const { user } = useUser();
@@ -72,7 +73,7 @@ const ChatForm: React.FC = () => {
     debounce(() => {
       setIsTyping(false);
       socket.emit(SocketEvent.STOP_TYPING, activeChat!.id);
-    }, 2000),
+    }, DEBOUNCE_TIME),
     []
   );
 

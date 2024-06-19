@@ -30,6 +30,10 @@ class UserService {
     return this.userRepository.findByEmail(email);
   }
 
+  public async findAllUsers(): Promise<UserDto[]> {
+    return this.userRepository.findAllUsers();
+  }
+
   public async findById(id: string): Promise<UserDto | null> {
     return this.userRepository.findById(id);
   }
