@@ -1,8 +1,13 @@
 import { AuthWrapper, Container } from '~/libs/components/components.js';
 import { Button } from '~/libs/components/components.js';
 import { AppRoute } from '~/libs/enums/enums.js';
+import { useUser } from '~/libs/hooks/hooks.js';
 
 const Home: React.FC = () => {
+  const { user } = useUser();
+
+  const isLoggedIn = Boolean(user);
+
   return (
     <AuthWrapper>
       <Container>
@@ -17,9 +22,9 @@ const Home: React.FC = () => {
           </div>
           <div>
             <Button
-              label="Go to chats"
+              label={isLoggedIn ? 'Go to chats' : 'Sign up'}
               iconName="arrow-right"
-              href={AppRoute.CHATS}
+              href={isLoggedIn ? AppRoute.CHATS : AppRoute.SIGN_UP}
               buttonStyle="secondary"
             />
           </div>

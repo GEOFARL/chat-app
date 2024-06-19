@@ -12,3 +12,4 @@ export { Card } from './card/card.tsx';
 export { Input } from './input/input.tsx';
 export { Notification } from './notification/notification.tsx';
 export { Loader } from './loader/loader.tsx';
+export { ProtectedRoute } from './protected-route/protected-route.js';

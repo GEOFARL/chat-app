@@ -7,6 +7,7 @@ import { type Controller, type Middleware } from '~/libs/types/types.js';
 
 import { type Config } from '../config/config.js';
 import { type Logger } from '../logger/logger.js';
+import { type Socket } from '../socket/socket.js';
 
 type Constructor = {
   config: Config;
@@ -60,6 +61,10 @@ class BaseServerApplication {
   public initNotFoundHandler(middleware: Middleware) {
     middleware.init(this.app);
     this.logger.info(`${middleware.name} middleware is initialized`);
+  }
+
+  public initSocket(socket: Socket) {
+    socket.init({ httpServer: this.httpServer });
   }
 
   public start() {

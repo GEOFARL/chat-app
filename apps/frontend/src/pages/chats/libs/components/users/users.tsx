@@ -4,7 +4,7 @@ import { QueryKey } from '~/libs/enums/enums.js';
 import { userApi } from '~/modules/user/user.js';
 import { Loader } from '~/libs/components/components.js';
 import { useStore } from '../../hooks/hooks.js';
-import { transformUser } from './libs/helpers/helpers.js';
+import { transformUser } from '../../helpers/helpers.js';
 
 const Users: React.FC = () => {
   const setUsers = useStore((state) => state.setUsers);

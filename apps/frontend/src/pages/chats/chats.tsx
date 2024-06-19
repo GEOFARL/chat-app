@@ -1,9 +1,13 @@
 import { AuthWrapper, Container } from '~/libs/components/components.js';
 import { ChatWindow, Users } from './libs/components/components.js';
-import { useStore } from './libs/hooks/hooks.js';
+import { useSocketListeners, useStore } from './libs/hooks/hooks.js';
 
 const Chats: React.FC = () => {
-  const activeChat = useStore((state) => state.activeChat);
+  const { activeChat } = useStore((state) => ({
+    activeChat: state.activeChat,
+  }));
+
+  useSocketListeners();
 
   return (
     <AuthWrapper>
