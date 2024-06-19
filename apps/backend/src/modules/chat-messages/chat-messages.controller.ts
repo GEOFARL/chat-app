@@ -9,12 +9,12 @@ import { type Controller } from '~/libs/types/types.js';
 import { asyncHandler } from '~/libs/helpers/helpers.js';
 
 import { HTTPCode } from '~/libs/modules/http/http.js';
+import { type Socket } from '~/libs/modules/socket/socket.js';
 
 import { requireAuth } from '~/middlewares/require-auth/require-auth.js';
 
 import { type ChatMessagesService } from './chat-messages.service.js';
-import { type Socket } from '~/libs/modules/socket/socket.js';
-import { CreateChatMessageRequestDto } from '@chat-app/shared';
+import { type CreateChatMessageRequestDto } from './libs/types/types.js';
 
 class ChatMessagesController implements Controller {
   private chatMessagesService: ChatMessagesService;

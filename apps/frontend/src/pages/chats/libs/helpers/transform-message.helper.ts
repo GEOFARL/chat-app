@@ -1,7 +1,9 @@
 import { type MessageDto } from '~/modules/chat-messages/chat-messages.js';
-import { type User, type Message } from '../types/types.js';
+import { type AuthResponseDto } from '~/modules/auth/auth.js';
+
 import { formatTime } from '~/libs/helpers/helpers.js';
-import { AuthResponseDto } from '@chat-app/shared';
+
+import { type User, type Message } from '../types/types.js';
 
 const transformMessage = ({
   message,

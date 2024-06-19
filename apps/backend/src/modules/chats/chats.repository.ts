@@ -1,5 +1,5 @@
 import { type ChatDto } from './libs/types/types.js';
-import { db } from '~/libs/modules/db/db';
+import { db } from '~/libs/modules/db/db.js';
 
 class ChatsRepository {
   public async findChat(
