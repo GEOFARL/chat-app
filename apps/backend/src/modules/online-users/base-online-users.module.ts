@@ -26,6 +26,12 @@ class BaseOnlineUsers implements OnlineUsers {
   public getUser(socketId: string): string | undefined {
     return this.onlineUsers[socketId];
   }
+
+  public getSocketId(userId: string): string | undefined {
+    return Object.keys(this.onlineUsers).find(
+      (key) => this.onlineUsers[key] === userId
+    );
+  }
 }
 
 export { BaseOnlineUsers };

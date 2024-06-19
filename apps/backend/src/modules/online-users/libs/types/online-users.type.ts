@@ -3,6 +3,7 @@ type OnlineUsers = {
   removeUser: (socketId: string) => void;
   getOnlineUsers: () => string[];
   getUser: (socketId: string) => string | undefined;
+  getSocketId: (userId: string) => string | undefined;
 };
 
 export { type OnlineUsers };

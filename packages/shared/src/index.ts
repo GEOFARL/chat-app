@@ -22,3 +22,8 @@ export {
   type UserDto,
 } from './modules/user/user.js';
 export { type AuthResponseDto } from './modules/auth/auth.js';
+export {
+  type CreateChatMessageRequestDto,
+  type MessageDto,
+} from './modules/chat-messages/chat-messages.js';
+export { type ChatDto } from './modules/chats/chats.js';

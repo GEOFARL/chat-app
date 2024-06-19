@@ -5,9 +5,10 @@ import { SocketEvent } from '~/libs/enums/enums.js';
 
 import { type AuthResponseDto } from '~/modules/auth/auth.js';
 
-import { DEFAULT_MESSAGES } from '../../constants/constants.js';
+import { type MessageDto } from '~/modules/chat-messages/chat-messages.js';
+
 import { type Message, type Tab, type User } from '../../types/types.js';
-import { transformUser } from '../../helpers/helpers.js';
+import { transformMessage, transformUser } from '../../helpers/helpers.js';
 
 import {
   checkIsUserAlreadyIncluded,
@@ -82,11 +83,27 @@ const useStore = create<State & Actions>((set, get) => {
     }
   };
 
+  const handleNewMessage = (newMessage: MessageDto) => {
+    set((state) => ({
+      messages:
+        state.activeChat && state.activeChat.id === newMessage.userId
+          ? [
+              ...state.messages,
+              transformMessage({
+                anotherUser: state.activeChat,
+                message: newMessage,
+                isNotMine: true,
+              }),
+            ]
+          : [...state.messages],
+    }));
+  };
+
   return {
     users: [],
     onlineUserIds: [],
     activeChat: null,
-    messages: DEFAULT_MESSAGES,
+    messages: [],
     activeTab: 'Online' as Tab,
     activeUsers: [],
     searchedUsers: [],
@@ -158,12 +175,14 @@ const useStore = create<State & Actions>((set, get) => {
     setListeners: (socket) => {
       socket.on(SocketEvent.LOGIN, handleUserLogin);
       socket.on(SocketEvent.USERS_ONLINE, handleUsersOnline);
+      socket.on(SocketEvent.MESSAGE_NEW, handleNewMessage);
       socket.on(SocketEvent.LOGOUT, handleLogout);
     },
 
     removeListeners: (socket) => {
       socket.off(SocketEvent.LOGIN, handleUserLogin);
       socket.off(SocketEvent.USERS_ONLINE, handleUsersOnline);
+      socket.off(SocketEvent.MESSAGE_NEW, handleNewMessage);
       socket.off(SocketEvent.LOGOUT, handleLogout);
     },
   };
